@@ -1,39 +1,29 @@
-#include <iostream>
-#include <queue>
-using namespace std;
+import React, { useContext, useState, useEffect } from "react";
+import "./Result.css";
+import { Theme } from "../App";
 
-int main()
-{
-    string s;
-    cin >> s;
-    int count[26] = {0};
-    queue<char> characters;
-    if (s != "")
-    {
-        for (int i = 0; i < s.size(); i++)
-        {
-            characters.push(s[i]);
-            count[s[i] - 'a']++;
-            while (!characters.empty())
-            {
-                if (count[characters.front() - 'a'] > 1)
-                {
-                    characters.pop();
-                }
-                else
-                {
-                    cout << characters.front() << " ";
-                    break;
-                }
-            }
-            if (characters.empty())
-            {
-                cout << -1 << " ";
-            }
-        }
-    }
-    else
-    {
-        cout << -1;
-    }
-}
+function Result(props) {
+  // importing the theme form App using use context
+  let theme = useContext(Theme);
+
+  // css property to set the visibility of the result div
+  const resultCss = {
+    display: props.visibility == "none" ? "none" : "flex",
+  };
+
+  const [textColor, setTextColor] = useState("blue");
+
+  // updating the color according to the theme using useState
+  useEffect(() => {
+    setTextColor(theme === "light" ? "blue" : "white");
+  }, [theme]);
+
+// state to maintain feedback 
+  const [feedback, setFeedback] = useState("");
+
+  useEffect(() => {
+    setFeedback(
+      props.score > 2
+        ? props.score === 5
+          ? "100%!!! You nailed it!"
+   
