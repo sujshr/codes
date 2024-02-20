@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 using namespace std;
 
 struct node
@@ -20,34 +21,39 @@ node *addToNode(node *current, int data)
     return newNode;
 }
 
-void createLoop(node *head, node *tail, int position)
+bool isPalindrome(node *head)
 {
-    if (head == nullptr || position == 0)
-    {
-        return;
-    }
-    node *current = head;
-    for (int i = 0; i < position - 1; i++)
-    {
-        current = current->nextNode;
-    }
-    tail->nextNode = current;
-}
+    if (head == nullptr || head->nextNode == nullptr)
+        return true;
 
-bool detectLoop(node *head)
-{
+    stack<int> values;
     node *slow = head;
     node *fast = head;
+
     while (fast != nullptr && fast->nextNode != nullptr)
     {
+        values.push(slow->data);
         slow = slow->nextNode;
         fast = fast->nextNode->nextNode;
-        if (fast == slow)
-        {
-            return true;
-        }
     }
-    return false;
+
+    if (fast != nullptr)
+    {
+        slow = slow->nextNode;
+    }
+
+    while (slow != nullptr)
+    {
+        int top = values.top();
+        values.pop();
+
+        if (slow->data != top)
+            return false;
+
+        slow = slow->nextNode;
+    }
+
+    return true;
 }
 
 int main()
@@ -56,7 +62,7 @@ int main()
     cin >> n;
     node *head;
     node *current;
-    node *tail;
+
     if (n > 0)
     {
         int a;
@@ -68,12 +74,9 @@ int main()
             cin >> a;
             current = addToNode(current, a);
         }
-        tail = current;
     }
-    int position;
-    cin >> position;
-    createLoop(head, tail, position);
-    if (detectLoop(head))
+
+    if (isPalindrome(head))
     {
         cout << "True";
     }
@@ -81,4 +84,5 @@ int main()
     {
         cout << "False";
     }
+    return 0;
 }
