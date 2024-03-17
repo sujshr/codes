@@ -1,17 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isOperator(char x)
+bool isOperator(char c)
 {
-    switch (x)
-    {
-    case '+':
-    case '-':
-    case '/':
-    case '*':
-        return true;
-    }
-    return false;
+    return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
 vector<string> postToPre(vector<string> post_exp)
@@ -44,6 +36,34 @@ vector<string> postToPre(vector<string> post_exp)
     vector<string> ans;
     ans.push_back(s.top());
     return ans;
+}
+
+string postfixToInfix(const string &postfix)
+{
+    stack<string> operands;
+
+    // Traverse the postfix expression from left to right
+    for (char c : postfix)
+    {
+        if (isOperator(c))
+        {
+            // Pop two operands and concatenate them with the operator
+            string operand2 = operands.top();
+            operands.pop();
+            string operand1 = operands.top();
+            operands.pop();
+            string expression = "(" + operand1 + c + operand2 + ")";
+            operands.push(expression);
+        }
+        else if (isalnum(c))
+        {
+            // If operand, push it onto the stack
+            operands.push(string(1, c));
+        }
+    }
+
+    // The result is at the top of the stack
+    return operands.top();
 }
 
 // Driver Code
