@@ -37,33 +37,36 @@ vector<string> postToPre(vector<string> post_exp)
     ans.push_back(s.top());
     return ans;
 }
-
-string postfixToInfix(const string &postfix)
+vector<string> postfixToInfix(vector<string> post_exp)
 {
-    stack<string> operands;
+    stack<string> s;
+    int n = post_exp.size();
 
-    // Traverse the postfix expression from left to right
-    for (char c : postfix)
+    for (int i = 0; i < n; i++)
     {
-        if (isOperator(c))
+
+        if (isOperator(post_exp[i][0]))
         {
-            // Pop two operands and concatenate them with the operator
-            string operand2 = operands.top();
-            operands.pop();
-            string operand1 = operands.top();
-            operands.pop();
-            string expression = "(" + operand1 + c + operand2 + ")";
-            operands.push(expression);
+
+            string op2 = s.top();
+            s.pop();
+            string op1 = s.top();
+            s.pop();
+
+            string temp = "(" + op1 + " " + post_exp[i] + " " + op2 + ")";
+
+            s.push(temp);
         }
-        else if (isalnum(c))
+
+        else
         {
-            // If operand, push it onto the stack
-            operands.push(string(1, c));
+            s.push(post_exp[i]);
         }
     }
 
-    // The result is at the top of the stack
-    return operands.top();
+    vector<string> ans;
+    ans.push_back(s.top());
+    return ans;
 }
 
 // Driver Code
@@ -82,7 +85,7 @@ int main()
         words.push_back(word);
     }
 
-    vector<string> ans = postToPre(words);
+    vector<string> ans = postfixToInfix(words);
     for (auto i : ans)
     {
         cout << i;
