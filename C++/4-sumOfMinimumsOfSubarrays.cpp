@@ -7,7 +7,7 @@ using namespace std;
 
 void printSumOfMinElements(const vector<int> &arr)
 {
-    int sum = 0; // Initialize the sum of minimum elements
+    int sum = 0; 
 
     for (int i = 0; i < arr.size(); i++)
     {

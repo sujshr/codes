@@ -49,7 +49,6 @@ int main()
     vector<int> nums = {1, 2, 3};
     vector<vector<int>> result = subsets(nums);
 
-    // Print the subsets
     for (const auto &subset : result)
     {
         cout << "[";
