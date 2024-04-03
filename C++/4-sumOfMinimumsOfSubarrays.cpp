@@ -13,7 +13,6 @@ void printSumOfMinElements(const vector<int> &arr)
     {
         for (int j = i; j < arr.size(); j++)
         {
-            // Find the minimum element in the current subarray
             int min_element = arr[i];
             for (int k = i + 1; k <= j; k++)
             {
@@ -26,7 +25,6 @@ void printSumOfMinElements(const vector<int> &arr)
         }
     }
 
-    // Print the sum of minimum elements
     cout << "Sum of minimum elements in all subarrays: " << sum << endl;
 }
 

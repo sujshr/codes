@@ -5,13 +5,11 @@
 
 using namespace std;
 
-// Function to check if a character is an operator
 bool isOperator(char c)
 {
     return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
-// Function to convert prefix expression to infix expression
 string prefixToInfix(const string &prefix)
 {
     stack<string> operands;
