@@ -11,30 +11,39 @@ struct ListNode
 
 ListNode *removeNthFromEnd(ListNode *head, int n)
 {
+    // Create a dummy node to handle edge cases
     ListNode *dummy = new ListNode(0);
     dummy->next = head;
+
+    // Initialize two pointers, first and second, both pointing to dummy node initially
     ListNode *first = dummy;
     ListNode *second = dummy;
 
-    // Move the first pointer ahead by n+1 steps
-    for (int i = 0; i < n + 1; ++i)
+    // Move the first pointer ahead by n steps
+    for (int i = 0; i < n; ++i)
     {
+        if (first == nullptr) // If n exceeds the length of the list
+            return head;      // No changes required, return the original list
         first = first->next;
     }
 
     // Move both pointers together until the first pointer reaches the end
-    while (first != nullptr)
+    while (first->next != nullptr)
     {
         first = first->next;
         second = second->next;
     }
 
+    // At this point, the second pointer is pointing to the node just before the nth node from the end
     // Remove the nth node from the end
     ListNode *temp = second->next;
     second->next = second->next->next;
     delete temp;
 
-    return dummy->next;
+    // Store the result after removing the nth node and return it
+    ListNode *result = dummy->next;
+    delete dummy; // Delete the dummy node
+    return result;
 }
 
 void printLinkedList(ListNode *head)
