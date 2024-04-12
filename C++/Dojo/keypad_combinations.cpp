@@ -4,7 +4,7 @@
 
 using namespace std;
 
-vector<string> keys = {"", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+vector<string> keys = {"","", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
 // Helper function for recursion
 void helper(int a[], int n, string temp, int indx, vector<string> &ans)
